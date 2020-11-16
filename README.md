@@ -1,4 +1,4 @@
-# testapp
+# Socialite Flutter App
 
 A new Flutter project.
 
