@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Posts extends StatefulWidget {
-  const Posts({
-    Key key,
-  }) : super(key: key);
+  String name;
+  int hrs;
+  String iconURL;
+  String imageURL;
+  int likes;
+  int comments;
+  int shares;
+  Posts({this.name,this.hrs,this.iconURL,this.imageURL,this.likes,this.comments,this.shares});
 
   @override
   _PostsState createState() => _PostsState();
@@ -33,7 +38,7 @@ class _PostsState extends State<Posts> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(40.0),
                     child: Image.asset(
-                      "assets/avatar/avatar-2.jpg",
+                    widget.iconURL,
                       width: 35.0,
                     ),
                   ),
@@ -41,7 +46,7 @@ class _PostsState extends State<Posts> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.fromLTRB(16.0, 0.0, 8.0, 1.0),
-                        child: Text("Hamse Ali",
+                        child: Text(widget.name,
                             style: TextStyle(
                                 fontSize: 16.0, fontWeight: FontWeight.w600)),
                       ),
@@ -54,7 +59,7 @@ class _PostsState extends State<Posts> {
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(
                                     16.0, 1.0, 1.0, 1.0),
-                                child: Text("6 hrs ",
+                                child: Text("${widget.hrs} hrs ",
                                     style: TextStyle(
                                         fontSize: 12.0,
                                         fontWeight: FontWeight.w600)),
@@ -76,7 +81,7 @@ class _PostsState extends State<Posts> {
               ),
               SizedBox(height: 20.0),
               Image.network(
-                  "http://demo.foxthemes.net/socialitehtml/assets/images/post/img-1.jpg"),
+                  widget.imageURL),
               Row(
                 children: [
                   Padding(
@@ -104,10 +109,10 @@ class _PostsState extends State<Posts> {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(4.0, 1.0, 8.0, 0.0),
-                    child: Text(" 13"),
+                    child: Text(" ${widget.likes}"),
                   ),
                   Spacer(),
-                  Text("24 Comments")
+                  Text("${widget.comments} Comments")
                 ],
               ),
               Container(
@@ -119,13 +124,13 @@ class _PostsState extends State<Posts> {
                 
                 children: [
                 Icon(Icons.thumb_up_outlined,size: 18.0,),
-                Text("  126 Liked"),
+                Text("  ${widget.likes} Liked"),
                 Spacer(),
                 Icon(Icons.favorite_outline,size: 18.0,),
-                Text("  24 Comments"),
+                Text("  ${widget.comments} Comments"),
                 Spacer(),
                 Icon(Icons.share_outlined,size: 18.0,),
-                Text("  45 Share"),
+                Text("  ${widget.shares} Share"),
               ],),
               Container(
                 height: 0.4,
