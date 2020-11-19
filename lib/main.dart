@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:testapp/posts.dart';
 import './slider.dart';
@@ -14,11 +15,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  
   double size;
   double widthSize;
   bool _visible = true;
   bool textVisibility = true;
-
+  String iconURL = "assets/images/avatar-lg-1.jpg";
+  String userName = "Dennis";
+  String avatar = "assets/avatar/avatar-1.png";
   double val = 0.0;
   double imageRadius;
   void initState() {
@@ -51,11 +55,15 @@ class _MyAppState extends State<MyApp> {
           body: Padding(
             padding: const EdgeInsets.all(15.0),
             child: NotificationListener<ScrollNotification>(
-              onNotification: (scrollNotification) {
+              
+                onNotification: (scrollNotification) {
                 setState(() {
-                  print(scrollNotification.metrics.pixels);
-                  if ((200 - (scrollNotification.metrics.pixels)) >= 80) {
-                    
+                  print("==*********==");
+                  print(scrollNotification.context);
+                  print(scrollNotification.context.widget);
+                  print("====");
+
+                  if ((200 - (scrollNotification.metrics.pixels)) >= 80  ) {
                     size = 200 - (scrollNotification.metrics.pixels);
                     _visible = true;
                     val = size;
@@ -65,12 +73,10 @@ class _MyAppState extends State<MyApp> {
                     print("WIDTH $widthSize");
                     print("RADIUS $imageRadius");
 
-                    if(size<150){
-                      textVisibility=false;
-                    }
-                    else{
-                      textVisibility=true;
-
+                    if (size < 150) {
+                      textVisibility = false;
+                    } else {
+                      textVisibility = true;
                     }
                   }
                 });
@@ -86,100 +92,66 @@ class _MyAppState extends State<MyApp> {
                         // width: 200.0,
                         height: size + 20,
                         child: Center(
-                          child: AnimatedOpacity(
-                            opacity: _visible ? 1.0 : 0.0,
-                            duration: Duration(milliseconds: 200),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Container(
-                                margin:
-                                    EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      height: size,
-                                      width: widthSize,
-                                      child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                              imageRadius),
-                                          child: Stack(children: [
-                                            Image.asset(
-                                              "assets/images/avatar-lg-1.jpg",
-                                              width: widthSize,
-                                              fit: BoxFit.cover,
-                                            ),
-                                            Container(
-                                              width: 150.0,
-                                              height: 200.0,
-                                              decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                begin: Alignment.topCenter,
-                                                end: Alignment.bottomCenter,
-                                                colors: [
-                                                  Color.fromARGB(0, 0, 0, 0),
-                                                  Color.fromARGB(220, 22, 22, 3)
-                                                ],
-                                              )),
-                                            ),
-                                            Positioned(
-                                                bottom: 1,
-                                                left: 10,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      15.0),
-                                                  child: AnimatedOpacity(
-                                                    opacity:
-                                                        textVisibility ? 1.0 : 0.0,
-                                                    duration: Duration(
-                                                        milliseconds: 500),
-                                                    child: Text(
-                                                      "Dennis",
-                                                      style: TextStyle(
-                                                          fontFamily: 'Archivo',
-                                                          color: Colors.white,
-                                                          fontSize: 18.0,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ),
-                                                  ),
-                                                )),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(10.0),
-                                              child: Stack(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            4.0),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50),
-                                                      child: Image.asset(
-                                                        "assets/avatar/avatar-1.png",
-                                                        height: 50.0,
-                                                        width: 50.0,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          ])),
-                                    ),
-                                    SizedBox(width: 20.0),
-                                  ],
-                                ),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+                              child: Row(
+                                children: [
+                                  ComplexSlider(
+                                      size: size,
+                                      widthSize: widthSize,
+                                      imageRadius: imageRadius,
+                                      iconURL: iconURL,
+                                      textVisibility: textVisibility,
+                                      userName: userName,
+                                      avatar: avatar),
+                                  SizedBox(width: 20.0),
+                                  ComplexSlider(
+                                      size: size,
+                                      widthSize: widthSize,
+                                      imageRadius: imageRadius,
+                                      iconURL: 'assets/images/avatar-lg-2.jpg',
+                                      textVisibility: textVisibility,
+                                      userName: "Hamse Ali",
+                                      avatar: "assets/avatar/avatar-2.jpg"),
+                                  SizedBox(width: 20.0),
+                                  ComplexSlider(
+                                      size: size,
+                                      widthSize: widthSize,
+                                      imageRadius: imageRadius,
+                                      iconURL: 'assets/images/avatar-lg-3.jpg',
+                                      textVisibility: textVisibility,
+                                      userName: "Stella",
+                                      avatar: "assets/avatar/avatar-3.jpg"),
+                                  SizedBox(width: 20.0),
+                                  ComplexSlider(
+                                      size: size,
+                                      widthSize: widthSize,
+                                      imageRadius: imageRadius,
+                                      iconURL: 'assets/images/avatar-lg-4.jpg',
+                                      textVisibility: textVisibility,
+                                      userName: "Alex",
+                                      avatar: "assets/avatar/avatar-4.jpg"),
+                                  SizedBox(width: 20.0),
+                                  ComplexSlider(
+                                      size: size,
+                                      widthSize: widthSize,
+                                      imageRadius: imageRadius,
+                                      iconURL: 'assets/images/avatar-lg-5.jpg',
+                                      textVisibility: textVisibility,
+                                      userName: "Aldrin",
+                                      avatar: "assets/avatar/avatar-5.jpg"),
+                                ],
                               ),
                             ),
                           ),
                         )),
                     content: Container(
+                      color:Colors.white24,
                       child: Column(
                         children: [
-                          ImageSlider(),
+                          // ImageSlider(),
                           SizedBox(
                             height: 20.0,
                           ),
@@ -229,5 +201,125 @@ class _MyAppState extends State<MyApp> {
             ),
           )),
     );
+  }
+}
+
+class ComplexSlider extends StatelessWidget {
+  const ComplexSlider({
+    Key key,
+    @required this.size,
+    @required this.widthSize,
+    @required this.imageRadius,
+    @required this.iconURL,
+    @required this.textVisibility,
+    @required this.userName,
+    @required this.avatar,
+  }) : super(key: key);
+
+  final double size;
+  final double widthSize;
+  final double imageRadius;
+  final String iconURL;
+  final bool textVisibility;
+  final String userName;
+  final String avatar;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: size,
+      width: widthSize,
+      child: ClipRRect(
+          borderRadius: BorderRadius.circular(imageRadius),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) {
+                print("CLICKED");
+                return DetailScreen(iconURL: iconURL);
+              }));
+            },
+            child: Stack(children: [
+              Image.asset(
+                iconURL,
+                width: widthSize,
+                height: size,
+                fit: BoxFit.cover,
+              ),
+              Container(
+                width: 150.0,
+                height: 200.0,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color.fromARGB(0, 0, 0, 0),
+                    Color.fromARGB(220, 22, 22, 3)
+                  ],
+                )),
+              ),
+              Positioned(
+                  bottom: 1,
+                  left: 10,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: AnimatedOpacity(
+                      opacity: textVisibility ? 1.0 : 0.0,
+                      duration: Duration(milliseconds: 500),
+                      child: Text(
+                        userName,
+                        style: TextStyle(
+                            fontFamily: 'Archivo',
+                            color: Colors.white,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  )),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.asset(
+                          avatar,
+                          height: 50.0,
+                          width: 50.0,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ]),
+          )),
+    );
+  }
+}
+
+class DetailScreen extends StatelessWidget {
+  const DetailScreen({Key key, @required this.iconURL}) : super(key: key);
+  final String iconURL;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Stack(children: [
+        Image.asset(
+          iconURL,
+          width: MediaQuery.of(context).size.width + 30,
+          height: MediaQuery.of(context).size.height + 30,
+          fit: BoxFit.cover,
+        ),
+      ]),
+    ));
   }
 }
