@@ -15,7 +15,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  
   double size;
   double widthSize;
   bool _visible = true;
@@ -25,6 +24,10 @@ class _MyAppState extends State<MyApp> {
   String avatar = "assets/avatar/avatar-1.png";
   double val = 0.0;
   double imageRadius;
+  final Shader linearGradient = LinearGradient(
+    colors: <Color>[Color(0xffDA44bb), Color(0xff8921aa)],
+  ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
   void initState() {
     super.initState();
 
@@ -48,22 +51,18 @@ class _MyAppState extends State<MyApp> {
               width: 120.0,
             ),
           ),
-          drawer: Drawer(
-              child: Column(
-            children: [Text("Test")],
-          )),
+          drawer: Drawer(child: SideBar()),
           body: Padding(
             padding: const EdgeInsets.all(15.0),
             child: NotificationListener<ScrollNotification>(
-              
-                onNotification: (scrollNotification) {
+              onNotification: (scrollNotification) {
                 setState(() {
                   print("==*********==");
                   print(scrollNotification.context);
                   print(scrollNotification.context.widget);
                   print("====");
 
-                  if ((200 - (scrollNotification.metrics.pixels)) >= 80  ) {
+                  if ((200 - (scrollNotification.metrics.pixels)) >= 80) {
                     size = 200 - (scrollNotification.metrics.pixels);
                     _visible = true;
                     val = size;
@@ -148,7 +147,7 @@ class _MyAppState extends State<MyApp> {
                           ),
                         )),
                     content: Container(
-                      color:Colors.white24,
+                      color: Colors.white24,
                       child: Column(
                         children: [
                           // ImageSlider(),
@@ -200,6 +199,58 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
           )),
+    );
+  }
+}
+
+class SideBar extends StatelessWidget {
+  static const val="Home";
+  const SideBar({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 30.0),
+      child: Column(
+        children: [
+          Options(val: val),
+          SizedBox(height:10.0),
+          Options(val: "To Dos"),
+
+        ],
+      ),
+    );
+  }
+}
+
+class Options extends StatelessWidget {
+  const Options({
+    Key key,
+    @required this.val,
+  }) : super(key: key);
+
+  final String val;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      color: Colors.black12,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0),
+        child: Center(
+          child: Text(
+            val,
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ),
+        
+      ),
     );
   }
 }
@@ -269,10 +320,11 @@ class ComplexSlider extends StatelessWidget {
                       child: Text(
                         userName,
                         style: TextStyle(
-                            fontFamily: 'Archivo',
-                            color: Colors.white,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w500),
+                          fontFamily: 'Archivo',
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   )),

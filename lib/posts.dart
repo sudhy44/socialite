@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bubble/bubble.dart';
 
 class Posts extends StatefulWidget {
   String name;
@@ -8,7 +9,14 @@ class Posts extends StatefulWidget {
   int likes;
   int comments;
   int shares;
-  Posts({this.name,this.hrs,this.iconURL,this.imageURL,this.likes,this.comments,this.shares});
+  Posts(
+      {this.name,
+      this.hrs,
+      this.iconURL,
+      this.imageURL,
+      this.likes,
+      this.comments,
+      this.shares});
 
   @override
   _PostsState createState() => _PostsState();
@@ -17,6 +25,17 @@ class Posts extends StatefulWidget {
 class _PostsState extends State<Posts> {
   @override
   Widget build(BuildContext context) {
+    double pixelRatio = MediaQuery.of(context).devicePixelRatio;
+    double px = 1 / pixelRatio;
+
+    BubbleStyle styleSomebody = BubbleStyle(
+      nip: BubbleNip.leftTop,
+      color: Colors.white60,
+      elevation: 1 * px,
+      margin: BubbleEdges.only(top: 1.0, right: 0.0),
+      alignment: Alignment.topLeft,
+    );
+
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Container(
@@ -38,7 +57,7 @@ class _PostsState extends State<Posts> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(40.0),
                     child: Image.asset(
-                    widget.iconURL,
+                      widget.iconURL,
                       width: 35.0,
                     ),
                   ),
@@ -80,8 +99,7 @@ class _PostsState extends State<Posts> {
                 ],
               ),
               SizedBox(height: 20.0),
-              Image.network(
-                  widget.imageURL),
+              Image.network(widget.imageURL),
               Row(
                 children: [
                   Padding(
@@ -121,21 +139,89 @@ class _PostsState extends State<Posts> {
                 decoration: BoxDecoration(color: Colors.black38),
               ),
               Row(
-                
                 children: [
-                Icon(Icons.thumb_up_outlined,size: 18.0,),
-                Text("  ${widget.likes} Liked"),
-                Spacer(),
-                Icon(Icons.favorite_outline,size: 18.0,),
-                Text("  ${widget.comments} Comments"),
-                Spacer(),
-                Icon(Icons.share_outlined,size: 18.0,),
-                Text("  ${widget.shares} Share"),
-              ],),
+                  Icon(
+                    Icons.thumb_up_outlined,
+                    size: 18.0,
+                  ),
+                  Text("  ${widget.likes} Liked"),
+                  Spacer(),
+                  Icon(
+                    Icons.favorite_outline,
+                    size: 18.0,
+                  ),
+                  Text("  ${widget.comments} Comments"),
+                  Spacer(),
+                  Icon(
+                    Icons.share_outlined,
+                    size: 18.0,
+                  ),
+                  Text("  ${widget.shares} Share"),
+                ],
+              ),
               Container(
                 height: 0.4,
                 margin: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 15.0),
                 decoration: BoxDecoration(color: Colors.black38),
+              ),
+              Row(
+                children: [
+                  Text("View 8 more comments"),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(40.0),
+                      child: Image.network(
+                        "http://demo.foxthemes.net/socialitehtml/assets/images/avatars/avatar-5.jpg",
+                        width: 35.0,
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width-110.0,
+                          child: Bubble(
+                            style: styleSomebody,
+                            child: Text(
+                                'Ut wisi enim ad minim laoreet dolore magna aliquam erat'),
+                          ),
+                        ),
+                        
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(40.0),
+                      child: Image.network(
+                        "http://demo.foxthemes.net/socialitehtml/assets/images/avatars/avatar-2.jpg",
+                        width: 35.0,
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width-110.0,
+                          child: Bubble(
+                            style: styleSomebody,
+                            child: Text(
+                                'Ut wisi enim ad minim laoreet dolore David !'),
+                          ),
+                        ),
+                        
+                      ],
+                    )
+                  ],
+                ),
               ),
             ],
           ),
